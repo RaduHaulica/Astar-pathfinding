@@ -154,6 +154,19 @@
   <ItemGroup>
     <Font Include="Roboto-Bold.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="media\astar 1.png" />
+    <Image Include="media\astar 15.png" />
+    <Image Include="media\astar 2.png" />
+    <Image Include="media\astar 3.png" />
+    <Image Include="media\astar cover.png" />
+    <Image Include="media\astar full.gif" />
+    <Image Include="media\astar main.png" />
+    <Image Include="media\astar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

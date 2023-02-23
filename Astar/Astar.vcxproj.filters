@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\media">
+      <UniqueIdentifier>{f7766157-2fe3-4348-86e9-906495ef4bd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -28,5 +31,36 @@
     <Font Include="Roboto-Bold.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="media\astar 1.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar 2.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar 3.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar 15.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar cover.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar full.gif">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar main.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+    <Image Include="media\astar.gif">
+      <Filter>Resource Files\media</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
