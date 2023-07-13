@@ -168,6 +168,7 @@
     <Image Include="media\astar cover.png" />
     <Image Include="media\astar full.gif" />
     <Image Include="media\astar main.png" />
+    <Image Include="media\astar suboptimal.png" />
     <Image Include="media\astar.gif" />
   </ItemGroup>
   <ItemGroup>

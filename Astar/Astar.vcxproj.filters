@@ -75,6 +75,9 @@
     <Image Include="media\astar.gif">
       <Filter>Resource Files\media</Filter>
     </Image>
+    <Image Include="media\astar suboptimal.png">
+      <Filter>Resource Files\media</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">

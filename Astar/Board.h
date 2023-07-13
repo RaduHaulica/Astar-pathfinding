@@ -19,6 +19,7 @@ public:
 
     Board()
     {
+        // injecting the heap sort function that compares distances from the origin and to the destination to find the best candidate for the next move
         tileHeap.setPredicate([](Tile* a, Tile* b) {
             //std::cout << "A: " << * a << " < B: " << * b << " ? " << ((a->m_f == b->m_f) ? (a->m_h < b->m_h) : (a->m_f < b->m_f)) << std::endl;
             return (a->m_f == b->m_f) ? (a->m_h < b->m_h) : (a->m_f < b->m_f);
@@ -71,7 +72,7 @@ public:
         }
     }
 
-    std::vector<Tile*> getTileNeighbors(int x, int y)
+    std::vector<Tile*> getTileNeighbors(int x, int y, bool justNew = true)
     {
         std::vector<Tile*> result;
         std::array<std::array<int, 3>, 3> angles{
@@ -80,6 +81,7 @@ public:
             225,  270,  315  //  1,-1   1,0   1,1           //  2,0  2,1  2,2    //   45   0 315
         };
         // ^ points up at 0 rotation and down at 180 // bad mapping but if it works it ain't entirely stupid
+        // visual representation of path ancestry direction
         for (int j = -1; j <= 1; j++)
         {
             for (int i = -1; i <= 1; i++)
@@ -90,10 +92,24 @@ public:
                 if (!grid[x + i][y + j].isPassable) continue; // obstacle
                 if (grid[x + i][y + j].isStart == true) continue; // start tile
                 if (grid[x + i][y + j].isPassed) continue; // already part of the tested route
-                if (grid[x + i][y + j].isViewed) continue; // already part of the possible route
+                if (justNew && grid[x + i][y + j].isViewed) // already part of the possible route
+                {
+					// update information regarding previous tile in path for shorter way to origin => shorter way overall
+					int prev_g = grid[x + i][y + j].comingFrom->getCosts()[0];
+                    int this_g = grid[x][y].getCosts()[0];
 
-                grid[x + i][y + j].setPreviousTile(&grid[x][y], angles[i + 1][j + 1]); // offset by 1 to map on angles[][] indexes
-                result.push_back(&grid[x + i][y + j]);
+                    if (this_g < prev_g)
+                    {
+                        grid[x + i][y + j].setPreviousTile(&grid[x][y], angles[i + 1][j + 1]); // offset by 1 to map on angles[][] indexes due to i,j negative start
+                        grid[x + i][y + j].setCosts(grid[x + i][y + j].comingFrom->m_g + distanceCost(grid[x + i][y + j].comingFrom->m_gridX, grid[x + i][y + j].comingFrom->m_gridY, x + i, y + j), distanceCost(x + i, y + j, this->endX, this->endY));
+                    }
+                }
+                else
+                {
+					grid[x + i][y + j].setPreviousTile(&grid[x][y], angles[i + 1][j + 1]); // offset by 1 to map on angles[][] indexes due to i,j negative start
+					result.push_back(&grid[x + i][y + j]);
+                }
+
             }
         }
         //std::cout << "Neighbors of ("<<x<<", "<<y<<"): " << result.size() << "\n";
@@ -116,9 +132,16 @@ public:
         std::vector<Tile*> neighbors = getTileNeighbors(sx, sy);
         for (auto& elem : neighbors)
         {
-            elem->markViewed();
-            elem->setCosts(elem->comingFrom->m_g + distanceCost(sx, sy, elem->m_gridX, elem->m_gridY), distanceCost(elem->m_gridX, elem->m_gridY, ex, ey));
-            tileHeap.push(elem);
+            if (elem->isViewed)
+            {
+                
+            }
+            else
+            {
+				elem->markViewed();
+				elem->setCosts(elem->comingFrom->m_g + distanceCost(sx, sy, elem->m_gridX, elem->m_gridY), distanceCost(elem->m_gridX, elem->m_gridY, ex, ey));
+				tileHeap.push(elem);
+            }
         }
         //tileHeap.print();
 
