@@ -144,6 +144,11 @@ public:
     {
         return remove_from_heap();
     }
+
+    int size()
+    {
+        return m_heap.size();
+    }
 };
 
 //Heap<int, std::function<bool(int&, int&)>> testHeap;

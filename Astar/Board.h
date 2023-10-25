@@ -7,6 +7,7 @@ public:
     static int s_steps;
 
     bool started{ false };
+    bool ended{ false };
 
     std::array<std::array<Tile, size>, size> grid;
     Heap<Tile*, std::function<bool(Tile*, Tile*)>> tileHeap;
@@ -34,7 +35,7 @@ public:
         }
         else
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            if (!ended && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 inputCooldownAccumulator = inputCooldownDuration;
                 started = true;
@@ -42,11 +43,19 @@ public:
             }
         }
 
-        if (started)
+        if (started && !ended)
         {
             if (pathStepAccumulator > 0.01f)
             {
-                findPath(currentX, currentY, endX, endY);
+                if (tileHeap.size() > 0)
+                {
+					findPath(currentX, currentY, endX, endY);
+                }
+                else
+                {
+                    std::cout << "Destination impossible to reach\n";
+                    ended = true;
+                }
                 pathStepAccumulator = 0.0f;
             }
             else
